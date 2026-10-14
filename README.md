@@ -5,6 +5,12 @@
 
 ## 1. Fundamentação
 
+### 1.1 Ciclo de build e distribuição
+
+**Na web:** quando eu altero o código, faço o deploy no servidor e a mudança já fica no ar. Na próxima vez que o usuário abrir o site, ele vê a versão nova, sem precisar fazer nada. Se aparece um bug, eu corrijo e subo de novo em poucos minutos.
+
+**No mobile:** o app fica instalado no celular do usuário, então não basta subir para um servidor. Primeiro eu gero o build, depois envio para a App Store e para a Play Store. Lá a Apple e o Google revisam o app, o que pode levar de horas a dias, e eles podem recusar a versão. Depois de aprovada, o usuário ainda precisa atualizar. Quem não atualiza continua com a versão antiga, inclusive com o bug. Por isso o servidor precisa continuar funcionando com versões antigas do app.
+
 ### 1.2 Ciclo de vida do aplicativo
 
 No celular, o app passa por estados. Ele fica **ativo** quando está na tela e eu estou usando. Quando troco de app ou bloqueio a tela, ele vai para **segundo plano**: continua na memória, mas o sistema limita o que ele pode fazer para economizar bateria. Se o celular precisar de memória, o sistema pode **encerrar o app sem avisar**, e na próxima vez ele abre do zero. Por isso o programador precisa salvar o que é importante (como um formulário preenchido) antes que isso aconteça.
@@ -34,7 +40,6 @@ O contexto de uso é diferente: muitas vezes a pessoa está em pé, no ônibus, 
 
 Isso explica os padrões de navegação mobile: a tab bar inferior (poucas seções principais, sempre à mão), a navegação em pilha com botão de voltar e o menu lateral (drawer) para opções secundárias. Na web é comum o menu ficar no topo, o que no celular fica longe do polegar.
 
-
 ## 2. Pesquisa de campo: análise de 2 aplicativos
 
 Como meu celular está quebrado, analisei os dois serviços pelo Chrome, comparando a versão de computador com o modo de emulação de celular (DevTools). Isso não substitui o app instalado, e o que não consegui testar está indicado abaixo.
@@ -63,7 +68,7 @@ Nos dois casos a versão web de celular é uma adaptação reduzida: menu escond
 
 ## 3. Prática: da web para o React Native
 
-Reconstruí a **tela de login** do site da academia Ritmo Brasil (ritmobrasil-treino.netlify.app), que desenvolvi para (nome da atividade/disciplina em que fiz o site). O componente está em `src/components/LoginForm.js`, recebe `titulo`, `subtitulo` e `onEntrar` por props, usa `StyleSheet` com Flexbox e tem três estados com `useState`: o e-mail, a senha e o botão que mostra ou oculta a senha. Como meu celular está quebrado, rodei o projeto no navegador com Expo Web. Não reconstruí o logo nem a linha amarela do topo, só o formulário.
+Reconstruí a **tela de login** do site da academia Ritmo Brasil (ritmobrasil-treino.netlify.app), que desenvolvi para (PROGRAMAÇÃO PARA DISPOSITIVOS MÓVEIS). O componente está em `src/components/LoginForm.js`, recebe `titulo`, `subtitulo` e `onEntrar` por props, usa `StyleSheet` com Flexbox e tem três estados com `useState`: o e-mail, a senha e o botão que mostra ou oculta a senha. Como meu celular está quebrado, rodei o projeto no navegador com Expo Web. Não reconstruí o logo nem a linha amarela do topo, só o formulário. Antes do login, fiz como teste um componente `Navbar` (`src/components/Navbar.js`) para validar o ambiente.
 
 **Versão web (original):**
 
@@ -85,22 +90,9 @@ Reconstruí a **tela de login** do site da academia Ritmo Brasil (ritmobrasil-tr
 7. **Rolagem e `SafeAreaView`:** a tela não rola sozinha, precisei envolver tudo em um `ScrollView`. E o `SafeAreaView` aparece riscado no VS Code porque está obsoleto (deprecated).
 8. **Largura dos elementos:** na web um bloco ocupa a largura toda por padrão. No React Native, precisei de `flex: 1` para o `SafeAreaView` ocupar a tela.
 
-Reconstruí a **Navbar** da minha página web como o componente `src/components/Navbar.js`, que recebe `titulo` e `links` por props, usa `StyleSheet` e Flexbox, e tem um menu que abre e fecha com `useState`. Como meu celular está indisponível, rodei o projeto no navegador com Expo Web, em modo de emulação de celular.
-
-(Coloque aqui o print da versão web original ao lado do print do app rodando)
-
-### Diferenças que encontrei
-
-1. **Largura do elemento:** na web, um bloco ocupa a largura toda por padrão. No React Native a barra ficou estreita até eu colocar `flex: 1` no `SafeAreaView`.
-2. **Sem `div`, `p` e `button`:** usa-se `View`, `Text` e `Pressable`, e todo texto precisa estar dentro de `Text`.
-3. **`onPress` em vez de `onClick`:** e não existe `:hover`, o feedback é o estado de pressionado.
-4. **`flexDirection` padrão é `column`:** na web é `row`. Para a barra ficar horizontal precisei declarar `flexDirection: 'row'`.
-5. **Estilos sem cascata e sem CSS:** vêm de `StyleSheet.create`, com objetos em camelCase (`backgroundColor`), valores sem `px` e nada herdado do elemento pai.
-6. **`SafeAreaView` obsoleto:** o VS Code mostrou o componente riscado, porque ele está deprecated; hoje se recomenda o da biblioteca `react-native-safe-area-context`.
-
 ## 4. Conclusão
 
-(Escreva aqui 1 parágrafo seu: o que você precisa mudar na forma de pensar ao desenvolver para mobile?)
+Antes eu pensava em mobile como "o site em tela menor", e a pesquisa e a prática mostraram que não é isso. Na prática, o que eu achava que funcionava igual não funcionou: o `flexDirection` padrão é `column`, a barra ficou estreita até eu usar `flex: 1`, e todo texto precisou ir dentro de `Text`. Na análise da Netflix e da Disney+, vi que o menu some ou vira um ícone no celular e que os dois sites insistem em levar o usuário para o app. Daqui para frente, quero pensar primeiro no contexto de uso (uma mão, pouca atenção, rede ruim) e no tamanho do toque, e não só no layout. Também preciso lembrar que publicar um app passa por loja e revisão, e que o usuário pode continuar com uma versão antiga, então não dá para "corrigir e subir de novo" como na web.
 
 ## Referências
 
@@ -116,5 +108,5 @@ REACT NATIVE. **Documentação oficial**. Disponível em: https://reactnative.de
 
 ANTHROPIC. Claude (Sonnet 5.5). Ferramenta de inteligência artificial generativa.
 Data de uso: 14 out. 2026.
-Finalidade: orientação sobre a ordem de trabalho, exemplo do componente Navbar, correção da largura da barra e texto-base das seções 1.2 a 1.5 e da lista de diferenças.
-Arquivos impactados: src/components/Navbar.js, App.js, README.md
+Finalidade: orientação sobre a ordem de trabalho e o uso do Git; exemplos dos componentes Navbar e LoginForm; correção da largura da barra; texto-base das seções 1.2 a 1.5, da pesquisa de campo (seção 2), da lista de diferenças (seção 3) e da conclusão (seção 4).
+Arquivos impactados: src/components/Navbar.js, src/components/LoginForm.js, App.js, README.md

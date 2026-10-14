@@ -63,6 +63,28 @@ Nos dois casos a versão web de celular é uma adaptação reduzida: menu escond
 
 ## 3. Prática: da web para o React Native
 
+Reconstruí a **tela de login** do site da academia Ritmo Brasil (ritmobrasil-treino.netlify.app), que desenvolvi para (nome da atividade/disciplina em que fiz o site). O componente está em `src/components/LoginForm.js`, recebe `titulo`, `subtitulo` e `onEntrar` por props, usa `StyleSheet` com Flexbox e tem três estados com `useState`: o e-mail, a senha e o botão que mostra ou oculta a senha. Como meu celular está quebrado, rodei o projeto no navegador com Expo Web. Não reconstruí o logo nem a linha amarela do topo, só o formulário.
+
+**Versão web (original):**
+
+![Site da academia, topo](docs/comparacao/academia-web-topo.png)
+![Site da academia, parte de baixo](docs/comparacao/academia-web-baixo.png)
+
+**Versão React Native (Expo Web):**
+
+![App rodando](docs/comparacao/academia-app.png)
+
+### Diferenças que encontrei
+
+1. **Sem `div`, `p`, `input` e `button`:** usei `View`, `Text`, `TextInput` e `Pressable`. Todo texto precisa estar dentro de um `Text`.
+2. **O campo de texto funciona diferente:** no HTML o `input` usa `onchange` e `type="password"`. No React Native o `TextInput` usa `onChangeText` e `secureTextEntry`, e o valor fica guardado no `useState`.
+3. **`onPress` em vez de `onClick`:** e não existe `:hover`. O feedback visual é o estado de pressionado.
+4. **`flexDirection` padrão é `column`:** na web é `row`. Para o campo de senha ficar ao lado do botão "Mostrar", precisei declarar `flexDirection: 'row'`.
+5. **Estilos sem CSS e sem cascata:** vêm de `StyleSheet.create`, com objetos em camelCase (`backgroundColor`), números sem `px` e nada herdado do elemento pai. A cor do texto, por exemplo, tem que ser definida em cada `Text`.
+6. **Tipo de teclado:** no campo de e-mail usei `keyboardType="email-address"`, que no celular abre um teclado com `@`. Na web isso não existe no mesmo formato.
+7. **Rolagem e `SafeAreaView`:** a tela não rola sozinha, precisei envolver tudo em um `ScrollView`. E o `SafeAreaView` aparece riscado no VS Code porque está obsoleto (deprecated).
+8. **Largura dos elementos:** na web um bloco ocupa a largura toda por padrão. No React Native, precisei de `flex: 1` para o `SafeAreaView` ocupar a tela.
+
 Reconstruí a **Navbar** da minha página web como o componente `src/components/Navbar.js`, que recebe `titulo` e `links` por props, usa `StyleSheet` e Flexbox, e tem um menu que abre e fecha com `useState`. Como meu celular está indisponível, rodei o projeto no navegador com Expo Web, em modo de emulação de celular.
 
 (Coloque aqui o print da versão web original ao lado do print do app rodando)

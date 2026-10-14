@@ -34,20 +34,32 @@ O contexto de uso é diferente: muitas vezes a pessoa está em pé, no ônibus, 
 
 Isso explica os padrões de navegação mobile: a tab bar inferior (poucas seções principais, sempre à mão), a navegação em pilha com botão de voltar e o menu lateral (drawer) para opções secundárias. Na web é comum o menu ficar no topo, o que no celular fica longe do polegar.
 
+
 ## 2. Pesquisa de campo: análise de 2 aplicativos
 
-### App 1: (nome do app)
+Como meu celular está quebrado, analisei os dois serviços pelo Chrome, comparando a versão de computador com o modo de emulação de celular (DevTools). Isso não substitui o app instalado, e o que não consegui testar está indicado abaixo.
 
-(Coloque aqui 2 prints, salvos em `docs/apps/`)
+### App 1: Netflix
 
-- **Sem internet:** (ligue o modo avião, abra o app e escreva o que acontece)
-- **Botões e polegar:** (onde ficam os botões principais?)
-- **Permissões:** (como ele pede câmera, localização ou notificações?)
-- **Versão web:** (se tiver, 2 ou 3 linhas comparando; prints em `docs/comparacao/`)
+![Netflix no celular](docs/apps/netflix-celular.png)
+![Netflix no desktop](docs/comparacao/netflix-desktop.png)
 
-### App 2: (nome do app)
+- **Navegação:** no desktop o menu (Início, Séries, Filmes, Jogos...) aparece inteiro no topo. No modo celular ele some e sobram só a busca, o sino e o perfil, para caber na tela estreita.
+- **Botões e polegar:** o botão "Assistir" virou uma barra larga, que ocupa quase a largura toda e é fácil de tocar. Já a busca, o sino e o perfil ficam no topo, longe do polegar numa mão só.
+- **Permissões e app:** o Chrome mostrou "Notificações bloqueadas" na barra de endereço, ou seja, o site depende de permissão do usuário para notificar. Também vi que o site incentiva instalar o app. Não testei o uso sem internet; pelo que sei, o download de títulos para assistir offline só existe no app instalado.
 
-(Mesma estrutura do App 1)
+### App 2: Disney+
+
+![Disney+ no celular](docs/apps/disney-celular.png)
+![Disney+ no desktop](docs/comparacao/disney-desktop.png)
+
+- **Navegação:** no desktop o menu (Início, Ao Vivo, Minha Lista, Filmes, Séries, Originais) fica à mostra. No celular ele vira o ícone de três linhas (☰), que esconde as opções até o toque.
+- **Botões e polegar:** o ☰ e a busca ficam no canto superior direito, uma área difícil de alcançar com uma mão só. O carrossel ganha setas nas laterais, mas no celular o gesto natural seria arrastar o dedo.
+- **Permissões e app:** assim como a Netflix, o site pede para baixar o aplicativo no celular. Não testei o funcionamento sem internet nem as permissões do app instalado.
+
+### Comparação web x app
+
+Nos dois casos a versão web de celular é uma adaptação reduzida: menu escondido, controles principais no topo e convite constante para instalar o app, onde ficam recursos como download offline.
 
 ## 3. Prática: da web para o React Native
 
